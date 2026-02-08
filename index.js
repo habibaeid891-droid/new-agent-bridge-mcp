@@ -585,6 +585,23 @@ server.tool(
   }
 );
 
+
+// 🔎 DEBUG: list registered MCP tools
+app.get("/debug/tools", (_req, res) => {
+  try {
+    const tools = server._tools
+      ? Array.from(server._tools.keys())
+      : "tools map not accessible";
+
+    res.json({
+      ok: true,
+      tools,
+    });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: String(e) });
+  }
+});
+
 // ✅ Tool #1: log_message (Firebase save + Redis append)
 server.tool(
   "log_message",
