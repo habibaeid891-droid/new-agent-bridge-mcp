@@ -1105,6 +1105,28 @@ app.post("/debug/redis/clear", async (req, res) => {
  */
 const port = Number(process.env.PORT || 8080);
 
+// 🔎 DEBUG: test save_schedule_for_year via HTTP
+app.post("/debug/save_schedule", async (req, res) => {
+  try {
+    const { yearId, termId, weeks } = req.body;
+
+    const result = await server.callTool("save_schedule_for_year", {
+      yearId,
+      termId,
+      weeks,
+    });
+
+    res.json({
+      ok: true,
+      result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      ok: false,
+      error: err?.message || String(err),
+    });
+  }
+});
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Listening on ${port}`);
