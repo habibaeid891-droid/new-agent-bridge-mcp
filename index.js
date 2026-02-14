@@ -1,7 +1,7 @@
 import express from "express";
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { NodeHttpTransport } from "@modelcontextprotocol/sdk/server/nodeHttp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { Redis } from "@upstash/redis";
 import admin from "firebase-admin";
 
@@ -1018,7 +1018,8 @@ ${summary}
 /**
  * 3) Streamable HTTP transport
  */
-const transport = new NodeHttpTransport();
+const transport = new StreamableHTTPServerTransport({});
+
 /**
  * 4) Express routes
  */
